@@ -1,6 +1,8 @@
 <script>
   import Layout from "../components/layout/layout.svelte";
   import Toolbar from "../components/toolbar/toolbar.svelte";
+  import Draggable from "../components/draggable/draggable.svelte";
+  import Toolbox from "../components/toolbox/toolbox.svelte";
 </script>
 
 <style lang="scss">
@@ -17,4 +19,5 @@
 
 <Layout title="Editor">
   <Toolbar />
+  <Toolbox/>
 </Layout>

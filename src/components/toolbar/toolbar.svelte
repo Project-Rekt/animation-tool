@@ -70,6 +70,8 @@
     top: 0;
     width: 100%;
     height: 30px;
+    z-index: 1000;
+
     background-color: $bg-color;
     color: $fg-color;
     display: flex;
@@ -99,7 +101,7 @@
   .tab p {
     padding: 0;
     margin: 0;
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .tab:hover {
