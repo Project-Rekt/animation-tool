@@ -22,5 +22,5 @@
   <Toolbar />
   <Toolbox/>
   <Canvas/>
-  <Draggable x={window.innerWidth/2} y={window.innerHeight/2}><h1>Animation Tool v0.1b</h1></Draggable>
+  <Draggable x={window.innerWidth/2 - 150} y={window.innerHeight/2 - 35}><h1>Animation Tool v0.1b</h1></Draggable>
 </Layout>
