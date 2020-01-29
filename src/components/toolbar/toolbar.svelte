@@ -124,9 +124,15 @@
   }
 
   .list-item {
-    width: calc(100% - 10px);
+    width: 100%;
     padding: 0 5px;
     height: 25px;
+
+    margin: 3px 0;
+    border: none;
+    border-radius: 0;
+    background: none;
+    color: $fg-color;
 
     border-bottom: 1px solid $fg-color;
     display: flex;
@@ -164,9 +170,9 @@
           <p>{tab.name}</p>
           <div class={current === tab.name ? 'list expand' : 'list'}>
             {#each tab.list as li}
-              <div class="list-item">
+              <button class="list-item" on:click={li.action}>
                 <p>{li.name}</p>
-              </div>
+              </button>
             {/each}
           </div>
         </button>

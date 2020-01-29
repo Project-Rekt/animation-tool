@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   let drag;
   export let x, y;
+  export let style;
   let ox, oy;
 
   function handleMove(e) {
@@ -24,6 +25,9 @@
   }
 
   onMount(() => {
+    //mount styles
+    Object.assign(drag.style, style);
+    
     drag.addEventListener("mousedown", handleClick);
     if (!x || !y) {
       let bounds = drag.getBoundingClientRect();
