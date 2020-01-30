@@ -5,4 +5,9 @@ let view = writable({
     toolbox: true
 });
 
-export {canvasImage, view};
+let doc = writable({
+    width: 400,
+    height: 400
+});
+
+export {doc, canvasImage, view};

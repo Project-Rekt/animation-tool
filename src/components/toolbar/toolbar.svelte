@@ -1,7 +1,9 @@
 <script>
   import ClickOutside from "svelte-click-outside";
-  import {canvasImage, view} from "../../store.js";
-  let loader;
+  import Modal from "../modal/modal.svelte";
+  import { canvasImage, view, doc } from "../../store.js";
+  let loader, modal;
+  let canvasWidth, canvasHeight;
 
   let tabs = [
     {
@@ -28,14 +30,18 @@
             loader.click();
             let reader = new FileReader();
             let target = await new Promise((res, rej) => {
-              loader.addEventListener("change", e => {
-                res(e.target);
-              }, {once: true});
+              loader.addEventListener(
+                "change",
+                e => {
+                  res(e.target);
+                },
+                { once: true }
+              );
             });
             reader.readAsDataURL(target.files[0]);
-            reader.onload = (event) => {
+            reader.onload = event => {
               canvasImage.update(src => event.target.result);
-            }
+            };
           }
         }
       ]
@@ -57,6 +63,18 @@
         },
         {
           name: "Paste"
+        },
+        {
+          name: "Change Canvas Size",
+          action: () => {
+            modal.style.display = "block";
+            canvasWidth.addEventListener("change", function() {
+              doc.update(d => Object.assign(d, { width: canvasWidth.value }));
+            });
+            canvasHeight.addEventListener("change", function() {
+              doc.update(d => Object.assign(d, { height: canvasHeight.value }));
+            });
+          }
         }
       ]
     },
@@ -69,9 +87,7 @@
         {
           name: "Toolbox",
           action: () => {
-            view.update((v) => 
-               Object.assign(v, {toolbox: !v.toolbox})
-            );
+            view.update(v => Object.assign(v, { toolbox: !v.toolbox }));
           }
         }
       ]
@@ -86,7 +102,11 @@
   $bg-color: #594ffa;
   $fg-color: white;
 
-  input {
+  .modal {
+    display: none;
+  }
+
+  input[type="file"] {
     display: none;
   }
 
@@ -178,6 +198,15 @@
   }}>
   <div class="toolbar">
     <input type="file" bind:this={loader} />
+    <div class="modal" bind:this={modal}>
+      <Modal>
+        <h2>Canvas Width</h2>
+        Width
+        <input type="number" bind:this={canvasWidth} value={$doc.width} />
+        Height
+        <input type="number" bind:this={canvasHeight} value={$doc.height} />
+      </Modal>
+    </div>
     <div class="tabs">
       {#each tabs as tab}
         <button

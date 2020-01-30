@@ -25,12 +25,18 @@
   }
 
   onMount(() => {
+    let bounds = drag.getBoundingClientRect();
+    //default center
+    if(!x && !y) {
+      x = window.innerWidth/2 - bounds.width;
+      y = window.innerHeight/2 - bounds.height/2;
+    }
+
     //mount styles
     Object.assign(drag.style, style);
     
     drag.addEventListener("mousedown", handleClick);
     if (!x || !y) {
-      let bounds = drag.getBoundingClientRect();
       if (!x) x = bounds.x;
       if (!y) y = bounds.y;
     }

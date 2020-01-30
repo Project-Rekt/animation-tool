@@ -1,12 +1,17 @@
+<script>
+  import Draggable from "../draggable/draggable.svelte";
+</script>
+
 <style lang="scss">
   .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 10000;
+    background-color: #594ffa;
+    color: white;
   }
 </style>
 
-<div class="modal">
-    <slot/>
-</div>
+<Draggable>
+  <div class="modal">
+    <slot />
+  </div>
+</Draggable>
