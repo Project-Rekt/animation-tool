@@ -1,6 +1,6 @@
 <script>
   import ClickOutside from "svelte-click-outside";
-  import {canvasImage} from "../../store.js";
+  import {canvasImage, view} from "../../store.js";
   let loader;
 
   let tabs = [
@@ -67,7 +67,12 @@
           name: "Color Palette"
         },
         {
-          name: "Toolbox"
+          name: "Toolbox",
+          action: () => {
+            view.update((v) => 
+               Object.assign(v, {toolbox: !v.toolbox})
+            );
+          }
         }
       ]
     }

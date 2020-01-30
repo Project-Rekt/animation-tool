@@ -1,12 +1,15 @@
 <script>
   import Draggable from "../draggable/draggable.svelte";
+  import { view } from "../../store.js";
 
   let tools = [
     {
       name: "Select",
       icon: "assets/tool-icons/select.png",
       description: "Rectangle Selection",
-      action: () => {console.log("Hello World!")}
+      action: () => {
+        console.log("Hello World!");
+      }
     },
     {
       name: "Move",
@@ -17,7 +20,7 @@
       name: "Resize",
       icon: "assets/tool-icons/resize.png",
       description: "Resize Selection"
-    },
+    }
   ];
 </script>
 
@@ -80,19 +83,21 @@
   }
 </style>
 
-<Draggable
-  x={0}
-  y={40}
-  style={{ 'z-index': 100, 'box-shadow': '10px 10px 31px 1px rgba(0,0,0,0.37)' }}>
-  <div class="toolbox">
-    <p class="title">Toolbox</p>
-    <div class="tools-list">
-      {#each tools as tool}
-        <button class="tool" on:click={tool.action}>
-          <img src={tool.icon} />
-          <p class="tool-tip">{tool.description}</p>
-        </button>
-      {/each}
+{#if $view.toolbox}
+  <Draggable
+    x={0}
+    y={40}
+    style={{ 'z-index': 100, 'box-shadow': '10px 10px 31px 1px rgba(0,0,0,0.37)' }}>
+    <div class="toolbox">
+      <p class="title">Toolbox</p>
+      <div class="tools-list">
+        {#each tools as tool}
+          <button class="tool" on:click={tool.action}>
+            <img src={tool.icon} />
+            <p class="tool-tip">{tool.description}</p>
+          </button>
+        {/each}
+      </div>
     </div>
-  </div>
-</Draggable>
+  </Draggable>
+{/if}
