@@ -1,5 +1,8 @@
 <script>
   import ClickOutside from "svelte-click-outside";
+  import {canvasImage} from "../../store.js";
+  let loader;
+
   let tabs = [
     {
       name: "File",
@@ -20,7 +23,20 @@
           name: "Save Project"
         },
         {
-          name: "Import File"
+          name: "Import File",
+          action: async () => {
+            loader.click();
+            let reader = new FileReader();
+            let target = await new Promise((res, rej) => {
+              loader.addEventListener("change", e => {
+                res(e.target);
+              }, {once: true});
+            });
+            reader.readAsDataURL(target.files[0]);
+            reader.onload = (event) => {
+              canvasImage.update(src => event.target.result);
+            }
+          }
         }
       ]
     },
@@ -64,6 +80,10 @@
   $highlighted: #3f51b5;
   $bg-color: #594ffa;
   $fg-color: white;
+
+  input {
+    display: none;
+  }
 
   .toolbar {
     position: fixed;
@@ -117,6 +137,7 @@
     background-color: $bg-color;
     color: $fg-color;
     text-align: left;
+    box-shadow: 10px 10px 31px 1px rgba(0, 0, 0, 0.37);
   }
 
   .tab .list.expand {
@@ -151,6 +172,7 @@
     current = '';
   }}>
   <div class="toolbar">
+    <input type="file" bind:this={loader} />
     <div class="tabs">
       {#each tabs as tab}
         <button
