@@ -1,6 +1,8 @@
 <script>
   import { canvasImage } from "../../store.js";
   import { onMount } from "svelte";
+  import Draggable from "../draggable/draggable.svelte";
+
   let canvas, ctx;
   onMount(() => {
     ctx = canvas.getContext("2d");
@@ -29,13 +31,9 @@
     background-color: white;
     width: 400px;
     height: 400px;
-
-    position: fixed;
-    z-index: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
 </style>
 
-<canvas bind:this={canvas} />
+<Draggable x={window.innerWidth/2 - 200} y={window.innerHeight/2 - 200}>
+  <canvas bind:this={canvas} />
+</Draggable>

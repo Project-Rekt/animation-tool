@@ -14,15 +14,10 @@
       description: "Move Selection"
     },
     {
-      name: "Select",
-      icon: "assets/tool-icons/select.png",
-      description: "Rectangle Selection"
+      name: "Resize",
+      icon: "assets/tool-icons/resize.png",
+      description: "Resize Selection"
     },
-    {
-      name: "Select",
-      icon: "assets/tool-icons/select.png",
-      description: "Rectangle Selection"
-    }
   ];
 </script>
 
